@@ -9,6 +9,12 @@ spring:
   application:
     name: user-service
 
-#    别名包扫描
+#  别名包扫描
 mybatis:
   type-aliases-package: cn.ylj.user.entity
+
+#  注册成为客户端
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
