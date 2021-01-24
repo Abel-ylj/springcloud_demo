@@ -34,6 +34,7 @@ public class ConsumerController {
     @RequestMapping("/{uId}")
     @HystrixCommand
     public String findById(@PathVariable("uId") Integer uId){
+
         //直接用服务名 ， server-name  ===》 ip 中间会加入负载均衡逻辑
         String url = "http://user-service/user/" + uId;
 
