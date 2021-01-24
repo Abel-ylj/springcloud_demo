@@ -1,6 +1,8 @@
 package cn.ylj.consumer.controller;
 
 import cn.ylj.consumer.entity.User;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/consumer")
+@Slf4j
 public class ConsumerController {
 
     @Resource
@@ -25,14 +28,20 @@ public class ConsumerController {
     private DiscoveryClient discoveryClient;
 
 
+    @HystrixCommand(fallbackMethod = "findByIdFallback")//返回值必须是String，被修饰的方法返回值也要改
     @RequestMapping("/{uId}")
-    public User findById(@PathVariable("uId") Integer uId){
+    public String findById(@PathVariable("uId") Integer uId){
         //直接用服务名 ， server-name  ===》 ip 中间会加入负载均衡逻辑
         String url = "http://user-service/user/" + uId;
 
         //从注册中心获取服务，解耦，不直接依赖具体
-        User user = restTemplate.getForObject(url, User.class);
+        String user = restTemplate.getForObject(url, String.class);
         System.out.println(user);
         return user;
+    }
+
+    public String findByIdFallback(Integer uId){
+        log.error("查询消息失败. id:{}", uId);
+        return "对不起，网络太拥堵了";
     }
 }
