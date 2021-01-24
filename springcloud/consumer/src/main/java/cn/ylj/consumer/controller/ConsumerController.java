@@ -1,6 +1,7 @@
 package cn.ylj.consumer.controller;
 
 import cn.ylj.consumer.entity.User;
+import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.client.ServiceInstance;
@@ -20,6 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/consumer")
 @Slf4j
+@DefaultProperties(defaultFallback = "defaultFallBack")
 public class ConsumerController {
 
     @Resource
@@ -28,8 +30,9 @@ public class ConsumerController {
     private DiscoveryClient discoveryClient;
 
 
-    @HystrixCommand(fallbackMethod = "findByIdFallback")//返回值必须是String，被修饰的方法返回值也要改
+//    @HystrixCommand(fallbackMethod = "findByIdFallback")//返回值必须是String，被修饰的方法返回值也要改
     @RequestMapping("/{uId}")
+    @HystrixCommand
     public String findById(@PathVariable("uId") Integer uId){
         //直接用服务名 ， server-name  ===》 ip 中间会加入负载均衡逻辑
         String url = "http://user-service/user/" + uId;
@@ -43,5 +46,10 @@ public class ConsumerController {
     public String findByIdFallback(Integer uId){
         log.error("查询消息失败. id:{}", uId);
         return "对不起，网络太拥堵了";
+    }
+
+    public String defaultFallBack(){
+        log.error("默认回退");
+        return "默认回退：对不起，网络太拥堵了";
     }
 }
