@@ -19,7 +19,7 @@ eureka:
     fetch-registry: false
 #  作为server角色的配置
   server:
-    # 服务失效剔除时间间隔，默认60秒
-    eviction-interval-timer-in-ms: 60000
+    # 服务检查，超时没续约剔除，任务时间间隔，默认60秒
+    eviction-interval-timer-in-ms: 30000
     # 关闭自我保护模式（默认是打开的）
     enable-self-preservation: false
