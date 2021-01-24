@@ -1,5 +1,5 @@
 server:
-  port: 10086
+  port: ${port:10086}
 
 ## 当前服务名，注册到eureka中显示
 spring:
