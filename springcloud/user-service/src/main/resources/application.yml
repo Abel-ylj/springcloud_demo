@@ -1,0 +1,14 @@
+server:
+  port: 9091
+spring:
+  datasource:
+    url: jdbc:mysql://121.4.53.107:3306/springboot_test
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: Admin_46xx
+  application:
+    name: user-service
+
+#    别名包扫描
+mybatis:
+  type-aliases-package: cn.ylj.user.entity
