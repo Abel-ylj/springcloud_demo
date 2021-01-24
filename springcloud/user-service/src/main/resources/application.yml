@@ -1,5 +1,5 @@
 server:
-  port: 9091
+  port: ${port:9091}
 spring:
   datasource:
     url: jdbc:mysql://121.4.53.107:3306/springboot_test
