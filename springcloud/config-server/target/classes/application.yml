@@ -1,0 +1,15 @@
+server:
+  port: 12000
+spring:
+  application:
+    name: config-server
+  cloud:
+    ## 配置中心 git仓库指定， 指定后就在访问 http://localhost:12000/{applicaitonName}-{dev/prod}.yml 就自动查看到文件数据
+    config:
+      server:
+        git:
+          uri: https://github.com/ylj-2020/springcloud_demo.git
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
