@@ -17,6 +17,7 @@ spring:
           filters:
             - StripPrefix=1           #1表示剥离路径中第一级/api
                                         #剥离 外部请求http://127.0.0.1:10010/api/user/8-->网关处理成http://127.0.0.1:10010/user/8 -->微服务集群
+            - MyParam=name              # 自定义过滤器的参数，自定义过滤器会在Filter chain中执行，会获取请求中key=name的值
 
         - id: user-service-route        #路由项id
 #          uri: http://127.0.0.1:9092   #静态路由
@@ -27,6 +28,10 @@ spring:
           filters:
             - PrefixPath=/user          #前缀 外部请求http://127.0.0.1:10010/8-->网关处理成http://127.0.0.1:10010/user/8 -->微服务集群
 
+      ## 对所有的请求都执行,gw中有许多的过滤器可以配置
+      default-filters:
+        - AddResponseHeader=X-Response-Foo, Bar   #对响应体添加统一的响应头:值
+        - AddResponseHeader=ylj, hahaha   #对响应体添加统一的响应头
 # eureka 客户端配置
 eureka:
   client:
