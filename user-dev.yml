@@ -28,5 +28,5 @@ eureka:
     ## 服务续约时间和服务时效剔除时间（秒）, 30s续约一次表示服务还活着，90s了还没有续约就从中心剔除掉。证明死了
     lease-expiration-duration-in-seconds: 90
     lease-renewal-interval-in-seconds: 30
-
-hotString: ylj6666
+test:
+  hotString: ylj6666
