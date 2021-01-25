@@ -33,6 +33,16 @@ spring:
       default-filters:
         - AddResponseHeader=X-Response-Foo, Bar   #对响应体添加统一的响应头:值
         - AddResponseHeader=ylj, hahaha   #对响应体添加统一的响应头
+
+      ## 跨域策略配置
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            #allowedOrigins: * # 这种写法或者下面的都可以，*表示全部
+            allowedOrigins:
+              - "http://docs.spring.io"
+            allowedMethods:
+              - GET
 # eureka 客户端配置
 eureka:
   client:
