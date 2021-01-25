@@ -10,11 +10,22 @@ spring:
   cloud:
     gateway:
       routes:
+        - id: user-service-route2        #路由项id2
+          uri: lb:http://user-service   #动态路由，从注册中心获取路由信息，且loadbalance
+          predicates:                   #断言为true的，路由转发到uri
+            - Path=/api/**
+          filters:
+            - StripPrefix=1           #1表示剥离路径中第一级/api
+                                        #剥离 外部请求http://127.0.0.1:10010/api/user/8-->网关处理成http://127.0.0.1:10010/user/8 -->微服务集群
+
         - id: user-service-route        #路由项id
 #          uri: http://127.0.0.1:9092   #静态路由
-          uri: lb:http://user-service   #动态路由，从注册中心获取路由信息
+          uri: lb:http://user-service   #动态路由，从注册中心获取路由信息，且loadbalance
           predicates:                   #断言为true的，路由转发到uri
-            - Path=/user/**
+#            - Path=/user/**
+            - Path=/**
+          filters:
+            - PrefixPath=/user          #前缀 外部请求http://127.0.0.1:10010/8-->网关处理成http://127.0.0.1:10010/user/8 -->微服务集群
 
 # eureka 客户端配置
 eureka:
