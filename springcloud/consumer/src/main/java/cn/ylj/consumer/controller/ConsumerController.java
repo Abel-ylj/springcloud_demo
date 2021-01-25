@@ -12,6 +12,10 @@ import org.springframework.web.client.RestTemplate;
 import javax.annotation.Resource;
 
 /**
+ * 手动编写
+ *  1.restTemplate, http请求
+ *  2.服务保护(hystrix), 2.1自服务调用超时，父服务降级，2.2 服务熔断降级
+ *  3.负载均衡(ribbon), 调服务时用服务名 server-name
  * @author : yanglujian
  * create at:  2021/1/24  3:22 下午
  */

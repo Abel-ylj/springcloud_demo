@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 /**
+ * 使用Feign
+ * 动态代理技术，代理类完成rest请求，负载均衡，服务降级处理
+ *
  * @author : yanglujian
  * create at:  2021/1/25  9:38 上午
  */

@@ -7,7 +7,7 @@ import java.util.Date;
 public class User {
     // id
     //开启主键自动回填
-    private Long id;
+    private Integer id;
 
     // 用户名
     private String userName;
