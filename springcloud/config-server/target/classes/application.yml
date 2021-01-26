@@ -9,7 +9,21 @@ spring:
       server:
         git:
           uri: https://github.com/ylj-2020/springcloud_demo.git
+  # spring bus 总线的核心组件 配置rabbitmq信息；如果是都与默认值一致则不需要配置
+  rabbitmq:
+    host: 121.4.53.107
+    port: 5672
+    username: admin
+    password: admin
+    virtual-host: /ylj # 虚拟主机名称(rabbitmq实例)
 eureka:
   client:
     service-url:
       defaultZone: http://127.0.0.1:10086/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        # 触发消息的地址
+        include: bus-refresh

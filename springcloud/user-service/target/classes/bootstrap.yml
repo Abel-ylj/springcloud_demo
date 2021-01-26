@@ -12,7 +12,13 @@ spring:
         enabled: true
         # 配置中心服务名
         service-id: config-server
-
+  ## 需要侦听queue消息
+  rabbitmq:
+    host: 121.4.53.107
+    port: 5672
+    username: admin
+    password: admin
+    virtual-host: /ylj
 ## 注册中心，从注册中心去找配置中心服务
 eureka:
   client:

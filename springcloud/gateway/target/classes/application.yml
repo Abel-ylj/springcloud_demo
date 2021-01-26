@@ -33,6 +33,18 @@ spring:
       default-filters:
         - AddResponseHeader=X-Response-Foo, Bar   #对响应体添加统一的响应头:值
         - AddResponseHeader=ylj, hahaha   #对响应体添加统一的响应头
+
+      ## 跨域策略配置
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            #allowedOrigins: * # 这种写法或者下面的都可以，*表示全部
+            allowedOrigins:
+              - "http://docs.spring.io"
+            allowedMethods:
+              - GET
+
+
 # eureka 客户端配置
 eureka:
   client:
@@ -42,3 +54,18 @@ eureka:
   # 服务间调用 使用ip，而不是使用服务名
   instance:
     prefer-ip-address: true
+
+
+# Gateway 会对后面的微服务进行rest请求，涉及到微服务之间的交互，就需要自保护(Hystrix,不响应就断), 性能(ribbon,备胎多个)
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 6000
+ribbon:
+  ConnectTimeout: 1000
+  ReadTimeout: 2000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 0

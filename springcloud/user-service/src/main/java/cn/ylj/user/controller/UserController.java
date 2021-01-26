@@ -3,6 +3,7 @@ package cn.ylj.user.controller;
 import cn.ylj.user.entity.User;
 import cn.ylj.user.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/user")
+@RefreshScope //刷新配置，springcloud-bus
 public class UserController {
 
     @Resource
@@ -19,6 +21,7 @@ public class UserController {
 
     //从配置文件中获取的hotString,配置从配置中心服务中获取，配置中心读取git仓库
     //演示 用户修改仓库中的yml后，发送触发请求给 配置中心，完成整个微服务的热更新。
+    //测试请求： http://localhost:10010/api/user/9?token=8
     @Value("${test.hotString}")
     private String hotString;
 
